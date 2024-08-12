@@ -20,6 +20,7 @@ dependencies:
   equatable: ^2.0.5
   lottie: ^3.1.2
   pinput: ^5.0.0
+  flutter_secure_storage: ^9.2.2
 
 dev_dependencies:
   flutter_test:

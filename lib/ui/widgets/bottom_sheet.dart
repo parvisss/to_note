@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:gap/gap.dart';
 import 'package:to_note/bloc/todo/to_do_bloc.dart';
 import 'package:to_note/bloc/todo/to_do_event.dart';
@@ -94,8 +95,13 @@ class AddToDoBottomSheetState extends State<AddToDoBottomSheet> {
             },
             builder: (context, state) {
               if (state is ToDoLoading) {
-                return const Center(
-                  child: CircularProgressIndicator(),
+                return Center(
+                  child: SpinKitThreeInOut(
+                    itemBuilder: (context, index) {
+                      return const DecoratedBox(
+                          decoration: BoxDecoration(color: Colors.amber));
+                    },
+                  ),
                 );
               }
               return Column(

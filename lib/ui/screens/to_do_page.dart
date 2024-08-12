@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:to_note/bloc/todo/to_do_bloc.dart';
 import 'package:to_note/bloc/todo/to_do_event.dart';
 import 'package:to_note/bloc/todo/to_do_state.dart';
@@ -88,7 +89,14 @@ class ToDoPageState extends State<ToDoPage> {
       body: BlocBuilder<ToDoBloc, ToDoState>(
         builder: (context, state) {
           if (state is ToDoLoading) {
-            return const Center(child: CircularProgressIndicator());
+            return Center(
+              child: SpinKitThreeInOut(
+                itemBuilder: (context, index) {
+                  return const DecoratedBox(
+                      decoration: BoxDecoration(color: Colors.amber));
+                },
+              ),
+            );
           } else if (state is ToDoLoaded) {
             return StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
               stream: state.toDoList,
@@ -97,7 +105,14 @@ class ToDoPageState extends State<ToDoPage> {
                   return Center(child: Text('Error: ${snapshot.error}'));
                 }
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(child: CircularProgressIndicator());
+                  return Center(
+                    child: SpinKitThreeInOut(
+                      itemBuilder: (context, index) {
+                        return const DecoratedBox(
+                            decoration: BoxDecoration(color: Colors.amber));
+                      },
+                    ),
+                  );
                 }
 
                 final toDoDocs = snapshot.data?.docs ?? [];

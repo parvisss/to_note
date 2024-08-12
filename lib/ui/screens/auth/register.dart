@@ -3,6 +3,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:to_note/bloc/auth/auth_bloc.dart';
 import 'package:to_note/bloc/auth/auth_event.dart';
 import 'package:to_note/bloc/auth/auth_state.dart';
@@ -15,75 +16,6 @@ class RegistrationScreen extends StatefulWidget {
 }
 
 class RegistrationScreenState extends State<RegistrationScreen> {
-  // final TextEditingController _emailController = TextEditingController();
-  // final TextEditingController _passwordController = TextEditingController();
-
-  // @override
-  // Widget build(BuildContext context) {
-  //   return Scaffold(
-  //     body: Padding(
-  //       padding: const EdgeInsets.all(16.0),
-  //       child: BlocConsumer<AuthBloc, AuthState>(
-  //         listener: (context, state) {
-  //           if (state is AuthAuthenticated) {
-  //             // Navigate to the home screen or any other screen on success
-  //             ScaffoldMessenger.of(context).showSnackBar(
-  //               const SnackBar(content: Text('Registered successfully!')),
-  //             );
-  //             Navigator.pop(context); // Navigate back to the login screen
-  //           } else if (state is AuthError) {
-  //             ScaffoldMessenger.of(context).showSnackBar(
-  //               SnackBar(content: Text(state.error)),
-  //             );
-  //           }
-  //         },
-  //         builder: (context, state) {
-  //           if (state is AuthLoading) {
-  //             return Center(child: CircularProgressIndicator());
-  //           }
-  //           return Column(
-  //             crossAxisAlignment: CrossAxisAlignment.stretch,
-  //             children: [
-  //               TextField(
-  //                 controller: _emailController,
-  //                 decoration: InputDecoration(labelText: 'Email'),
-  //                 keyboardType: TextInputType.emailAddress,
-  //               ),
-  //               TextField(
-  //                 controller: _passwordController,
-  //                 decoration: InputDecoration(labelText: 'Password'),
-  //                 obscureText: true,
-  //               ),
-  //               SizedBox(height: 20),
-  //               ElevatedButton(
-  //                 onPressed: () {
-  //                   final email = _emailController.text.trim();
-  //                   final password = _passwordController.text.trim();
-  //                   if (email.isNotEmpty && password.isNotEmpty) {
-  //                     context.read<AuthBloc>().add(
-  //                           SignUpRequested(email: email, password: password),
-  //                         );
-  //                   } else {
-  //                     ScaffoldMessenger.of(context).showSnackBar(
-  //                       SnackBar(content: Text('Please enter email and password')),
-  //                     );
-  //                   }
-  //                 },
-  //                 child: Text('Register'),
-  //               ),
-  //               TextButton(
-  //                 onPressed: () {
-  //                   Navigator.pop(context); // Go back to the login screen
-  //                 },
-  //                 child: Text('Already have an account? Login here'),
-  //               ),
-  //             ],
-  //           );
-  //         },
-  //       ),
-  //     ),
-  //   );
-  // }
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
   final nameController = TextEditingController();
@@ -120,8 +52,13 @@ class RegistrationScreenState extends State<RegistrationScreen> {
           }
         }, builder: (context, state) {
           if (state is AuthLoading) {
-            return const Center(
-              child: CircularProgressIndicator(),
+            return Center(
+              child: SpinKitThreeInOut(
+                itemBuilder: (context, index) {
+                  return const DecoratedBox(
+                      decoration: BoxDecoration(color: Colors.amber));
+                },
+              ),
             );
           }
           return SingleChildScrollView(
